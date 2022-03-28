@@ -35,11 +35,12 @@ class Forecast {
 }
 
 const findMovies = async (request, response) => {
-  const movQuery = request.query.query;
+  const movQuery = request.query.searchQuery;
   const url = `https://api.themoviedb.org/3/search/movie/?api_key=${process.env.MOVIE_API_KEY}&language=en-US&query=${movQuery}`;
   console.log(movQuery);
   try {
     const movData = await axios.get(url);
+    console.log(movData);
     const movArr = movData.data.results.map(value => new Movies(value));
     response.send(movArr);
   } catch (error) {
